@@ -1,0 +1,5 @@
+Navbar: 
+    1. prime logo
+    2. car icon
+    3. Sidebar animation fix
+    4. 
