@@ -1,5 +1,13 @@
 Navbar: 
     1. prime logo
-    2. car icon
+    2. cart icon
     3. Sidebar animation fix
-    4. 
+
+Hero: 
+    1. Update Main Hero to Scroll type or better one
+    2. 
+
+
+SearchBar:
+    1. Search Click Bug
+    2. 

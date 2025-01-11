@@ -1,17 +1,41 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { assets } from '../assets/frontend_assets/assets'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { ShopContext } from '../context/ShopContext'
 // import logo from "../assets/frontend_assets/LOGO.svg"
 import { Link, NavLink } from 'react-router-dom'
 const Navbar = () => {
 
     const [visible, setVisible] = useState(false);
+    const {setShowSearch } = useContext(ShopContext);
+
+
+    //To test the image click
+    /*const [print, setPrint] =useState('');
+
+    useEffect(()=>{
+        console.log('ok');
+    },[print]);
+
+    const handlePrint = ()=>{
+        setPrint(prev => prev + "")
+    }
+    */
+
+    const handleChange = ()=>{
+        setShowSearch(true);
+    }
+
 
   return (
     // Navbar LOGO
         <div className='flex items-center justify-between py-5 font-medium'>
+            
+            {/* <button >Click Me</button>  */}
             <Link to='/'>
-            <img src={assets.logo} alt="logo" className="w-36" />
+            {/* <button onClick={console.log('ok')}> */}
+            <img  src={assets.logo} alt="logo" className="w-36" />
+            {/* </button> */}
             </Link>
             {/* Navigation LINKS */}
             <ul className='hidden sm:flex gap-5 text-m text-grey-700'>
@@ -39,7 +63,7 @@ const Navbar = () => {
             </ul>    
             {/* Navigation ICONS */}    
             <div className='flex items-center gap-6'>
-                <img src={assets.search_icon} className='w-5 cursor-pointer' alt='search'/>
+                <img onClick={handleChange} src={assets.search_icon} className='w-5 cursor-pointer' alt='search'/>
                 
                 <div className='group relative'>
                     <img className='w-5 cursor-pointer'  src={assets.profile_icon} alt="profile" />
