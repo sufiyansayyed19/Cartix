@@ -10,3 +10,8 @@ Collection:
 Products:
     1. 
     2. 
+
+
+Cart:
+    1. Show some cheezy text when Cart is empty
+    2. 

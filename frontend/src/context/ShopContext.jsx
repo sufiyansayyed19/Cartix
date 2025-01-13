@@ -1,6 +1,7 @@
 import React,{ createContext, useEffect, useState } from "react";
 import { products } from "../assets/frontend_assets/assets";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 
 export const ShopContext = createContext();
@@ -12,7 +13,10 @@ const ShopContextProvider = (props) => {
     const [ search, setSearch ] = useState('');
     const [ showSearch, setShowSearch ] = useState(true);
     const [ cartItems, setCartItems ] = useState({});
+    const navigate = useNavigate();
 
+
+    // Product.jsx: to add item in cart from product page
     const addToCart = async (itemId, size)=> {
         if (!size){
             toast.error('Please Select the Size');
@@ -32,6 +36,8 @@ const ShopContextProvider = (props) => {
         setCartItems(cartData);
     }
 
+
+    // Navbar.jsx: to get quantity of items to show on bag
     const getCartCount = ()=> {
         let totalCount = 0;
         for(const items in cartItems){
@@ -55,6 +61,34 @@ const ShopContextProvider = (props) => {
     )
 
 
+    // TO update in cartData the modification of quantity made by input or dutbin --->Cart.jsx
+    const updateQuantity = async (itemId, size, quantity)=> {
+        let cartData = structuredClone(cartItems);
+        cartData[itemId][size] = quantity;
+
+        setCartItems(cartData);
+    }
+
+
+    // Page: Cart: to get total amount of price of product of card
+    const getCartAmount = async => {
+        let totalAmount = 0;
+        for (const items in cartItems){
+            let itemInfo = products.find((product)=> product._id === items);
+            for (const item in cartItems[items]){
+                try{
+                    if (cartItems[items][item] > 0){
+                        totalAmount += itemInfo.price * cartItems[items][item];
+                    }
+                } catch (error) {
+
+                }
+            }
+        }
+        return totalAmount;
+    } 
+
+
     const value = {
         products, 
         currency, 
@@ -66,6 +100,10 @@ const ShopContextProvider = (props) => {
         cartItems,
         addToCart,
         getCartCount,
+        updateQuantity,
+        getCartAmount,
+        navigate,
+
 
     };
 
