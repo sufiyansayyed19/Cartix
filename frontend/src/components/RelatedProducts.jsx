@@ -15,10 +15,10 @@ const RelatedProducts = ({category, subCategory}) => {
             let productsCopy = [...products];
             productsCopy = productsCopy.filter((item)=> category === item.category );
             productsCopy = productsCopy.filter ((item)=> subCategory === item.subCategory);
-            console.log(productsCopy)
-            console.log(productsCopy.slice(0,5));
+            // console.log(productsCopy)
+            // console.log(productsCopy.slice(0,5));
+            // console.log(related);
             setRealted(productsCopy.slice(0,5));
-            console.log(related);
         }
     },[products])
 
