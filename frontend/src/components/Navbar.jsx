@@ -4,6 +4,9 @@ import { useState, useContext } from 'react'
 import { ShopContext } from '../context/ShopContext'
 // import logo from "../assets/frontend_assets/LOGO.svg"
 import { Link, NavLink } from 'react-router-dom'
+
+// Page: All pages
+
 const Navbar = () => {
 
     const [visible, setVisible] = useState(false);

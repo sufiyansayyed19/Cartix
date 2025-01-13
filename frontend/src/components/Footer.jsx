@@ -1,6 +1,7 @@
 import React from 'react'
 import { assets } from '../assets/frontend_assets/assets'
 
+// Page: All Pages
 const Footer = () => {
   return (
     <div>

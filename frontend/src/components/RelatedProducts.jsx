@@ -3,6 +3,8 @@ import { ShopContext } from '../context/ShopContext'
 import Title from './Title';
 import ProductItem from './ProductItem';
 
+
+// Page: Product
 const RelatedProducts = ({category, subCategory}) => {
 
     const { products } = useContext(ShopContext);

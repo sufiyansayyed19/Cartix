@@ -1,5 +1,6 @@
 import React from 'react'
 
+// Page: Home
 const NewsletterBOx = () => {
 
     const onSubmitHandler = (e) =>{
