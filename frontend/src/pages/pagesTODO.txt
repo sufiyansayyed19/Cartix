@@ -14,4 +14,8 @@ Products:
 
 Cart:
     1. Show some cheezy text when Cart is empty
-    2. 
+    2. Cart Should not work to place when there is no order or it should work with some cheezy msg on order that you should fill your cart first something like that 
+    3. BUG: no iteam in cart but still shipping price showing 
+
+PlaceOrder:
+    1. BUG: When no method is selected place order should not work 
