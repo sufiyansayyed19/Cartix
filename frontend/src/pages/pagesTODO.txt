@@ -3,6 +3,11 @@ More Features to ADD:
 2. NotFound page
 3. WishList Page
 
+Home: 
+    1. in Navbar profile and its related link navigation issues
+    2. 
+
+
 Collection: 
     1. Sort with Category conflict
     2. 
@@ -20,3 +25,10 @@ Cart:
 
 PlaceOrder:
     1. BUG: When no method is selected place order should not work 
+    2. Address save option
+    3. First and Last Name should not be asked in delivery detail its more like profile requirement or do as you research
+    4. 
+
+Login Page:
+    1. Make SignUp and Login UI better
+    2. 
