@@ -11,3 +11,7 @@ Hero:
 SearchBar:
     1. Search Click Bug --------------> Bug fixed
     2. 
+
+Footer:
+    1. Footer Can be more Attractive
+    2. 
