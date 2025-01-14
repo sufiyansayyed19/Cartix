@@ -9,5 +9,5 @@ Hero:
 
 
 SearchBar:
-    1. Search Click Bug
+    1. Search Click Bug --------------> Bug fixed
     2. 

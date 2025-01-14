@@ -3,6 +3,8 @@ import { ShopContext } from '../context/ShopContext'
 import { assets } from '../assets/frontend_assets/assets';
 import { useLocation } from 'react-router-dom';
 
+
+// Page: product
 const SearchBar = () => {
     const { search, setSearch, showSearch, setShowSearch } = useContext(ShopContext);
     const [ visible, setVisible ] = useState(false);

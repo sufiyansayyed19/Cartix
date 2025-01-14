@@ -1,6 +1,7 @@
+More Features to ADD:
 1. SignUp page
 2. NotFound page
-
+3. WishList Page
 
 Collection: 
     1. Sort with Category conflict
