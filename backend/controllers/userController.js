@@ -11,6 +11,8 @@ const createToken = (id) => {
 
 
 
+
+
 //Route for user Login
 const loginUser = async (req, res) => {
     try{
@@ -37,7 +39,7 @@ const loginUser = async (req, res) => {
 
 
     } catch (error){
-        console.log("error: ", error);
+        console.log("Error: ", error);
         res.status(500).json({ success:false, Message: error.message});
     }
 }
@@ -85,7 +87,7 @@ const registerUser = async (req, res) => {
         
 
     } catch(error){
-        console.log("error: ", error);
+        console.log("Error: ", error);
         res.status(500).json({ success:false, Message: error.message});
     }
 
@@ -96,7 +98,25 @@ const registerUser = async (req, res) => {
 
 // Route for admin Login
 const adminLogin = async (req, res) => {
-    res.json({msg: "adminLogin is also working"})
+    try {
+        const {email, password} = req.body;
+
+        if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD){
+            const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '2d' });
+
+            // console.log('Token generated')
+            return res.status(200).json({success: true, token});
+        } else {
+            return res.status(401).json({ success: false, Message: "Invalid credentials" });
+        }
+    } catch (error) {
+        console.log("Error: ", error);
+        res.status(500).json({ success:false, Message: error.message});
+    }
+
+
+
+    // res.json({msg: "adminLogin is also working"})
 }
 
 export { loginUser, registerUser, adminLogin };
