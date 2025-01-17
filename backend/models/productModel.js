@@ -11,8 +11,9 @@ const productSchema = new mongoose.Schema({
     bestseller: {type: Boolean},
     date: {type: Number, required: true}
 });
-delete mongoose.models.user; 
 const productModel = mongoose.models.product || mongoose.model("product", productSchema);
 
 export default productModel;
 
+
+ 

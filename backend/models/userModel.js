@@ -10,3 +10,6 @@ const userSchema = new mongoose.Schema({
 const userModel = mongoose.model("user", userSchema); // Register again with updated schema
 
 export default userModel;
+
+
+// delete mongoose.models.user; 
