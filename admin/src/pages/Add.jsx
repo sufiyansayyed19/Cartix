@@ -3,6 +3,7 @@ import { assets } from '../assets/assets'
 import axios from 'axios'
 import { backendUrl } from '../App'
 import { toast } from 'react-toastify'
+import ClipLoader from "react-spinners/ClipLoader"; // From react-spinners (optional)
 
 const Add = ({token}) => {
 
@@ -10,6 +11,7 @@ const Add = ({token}) => {
   const [image2, setImage2] = useState(false);
   const [image3, setImage3] = useState(false);
   const [image4, setImage4] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Loading state
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -22,6 +24,7 @@ const Add = ({token}) => {
   const onSubmitHandler = async (e)=>{
     e.preventDefault();
     try{
+      setIsLoading(true); // Show loading spinner
       const formData = new FormData();
 
       formData.append("name",name);
@@ -59,11 +62,14 @@ const Add = ({token}) => {
         setSizes([]);
       }
 
-    } catch(error){
-      console.log(error);
-      toast.error(error.message);
-    }
+      } catch(error){
+        console.log(error);
+        toast.error(error.message);
+      } finally {
+        setIsLoading(false); // Hide loading spinner
+      }
   }
+  
 
   return (
     <form onSubmit={onSubmitHandler} className="flex flex-col w-full items-start gap-3">
@@ -72,19 +78,19 @@ const Add = ({token}) => {
         
         <div className='flex gap-2'>
           <label htmlFor="image1">
-            <img className='w-24' src={!image1? assets.upload_area: URL.createObjectURL(image1)} alt=''/>
+            <img className='w-24 cursor-pointer' src={!image1? assets.upload_area: URL.createObjectURL(image1)} alt=''/>
             <input onChange={(e)=> setImage1(e.target.files[0])} type='file' id='image1' hidden />
           </label>
           <label htmlFor="image2">
-            <img className='w-24' src={!image2? assets.upload_area: URL.createObjectURL(image2)} alt=''/>
+            <img className='w-24 cursor-pointer' src={!image2? assets.upload_area: URL.createObjectURL(image2)} alt=''/>
             <input onChange={(e)=> setImage2(e.target.files[0])} type='file' id='image2' hidden />
           </label>
           <label htmlFor="image3">
-            <img className='w-24' src={!image3? assets.upload_area: URL.createObjectURL(image3)} alt=''/>
+            <img className='w-24 cursor-pointer' src={!image3? assets.upload_area: URL.createObjectURL(image3)} alt=''/>
             <input onChange={(e)=> setImage3(e.target.files[0])} type='file' id='image3' hidden />
           </label>
           <label htmlFor="image4">
-            <img className='w-24' src={!image4? assets.upload_area: URL.createObjectURL(image4)} alt=''/>
+            <img className='w-24 cursor-pointer' src={!image4? assets.upload_area: URL.createObjectURL(image4)} alt=''/>
             <input onChange={(e)=> setImage4(e.target.files[0])} type='file' id='image4' hidden />
           </label>
         </div>
@@ -156,10 +162,20 @@ const Add = ({token}) => {
           <label className='cursor-pointer' htmlFor='bestSeller'>Add to bestseller</label>
         </div>
 
-        <button type='submit' className='w-28 py-3 mt-4 bg-black text-white active:bg-white active:text-black ' >ADD</button>
+        <button
+          type="submit"
+          className={`w-28 py-3 mt-4 bg-black text-white ${
+            isLoading ? "opacity-50 cursor-not-allowed" : "active:bg-white active:text-black"
+          }`}
+          disabled={isLoading} // Disable button while loading
+        >
+  {isLoading ? "Adding..." : "ADD"}
+</button>
+
       </div> 
     </form>
+  
+  
   )
 }
-
 export default Add

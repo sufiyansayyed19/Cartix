@@ -1,2 +1,5 @@
 1.  index.css: change the active highlit color with more attractive one
 2. BUG: Add: when a image i uploaded input upload block expands
+3. Add loading state in Add.jsx and list.jsx 
+4. in List.jsx use bin for reomve icon instead of cross 
+5. work on loading animation in pages
