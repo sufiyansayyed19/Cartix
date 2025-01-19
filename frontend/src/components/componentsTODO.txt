@@ -15,3 +15,7 @@ SearchBar:
 Footer:
     1. Footer Can be more Attractive
     2. 
+
+
+Navbar:
+    1. after loging out don't navigate to login, user should be able to explore site without login

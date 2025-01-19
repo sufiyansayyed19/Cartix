@@ -10,7 +10,14 @@ import { Link, NavLink } from 'react-router-dom'
 const Navbar = () => {
 
     const [visible, setVisible] = useState(false);
-    const {setShowSearch, getCartCount } = useContext(ShopContext);
+    const {setShowSearch, getCartCount, navigate, token, setToken, setCartItems } = useContext(ShopContext);
+
+    const logout = ()=> {
+        navigate('/login');
+        localStorage.removeItem('token');
+        setToken('');
+        setCartItems({});
+    }
 
     const handleChange = ()=>{
         setShowSearch(true);
@@ -56,15 +63,15 @@ const Navbar = () => {
                 <img onClick={handleChange} src={assets.search_icon} className='w-5 cursor-pointer' alt='search'/>
                 
                 <div className='group relative'>
-                   <Link to={'/login '}><img className='w-5 cursor-pointer'  src={assets.profile_icon} alt="profile" /></Link>
+                   <img onClick={()=> token ? null: navigate('/login')} className='w-5 cursor-pointer'  src={assets.profile_icon} alt="profile" />
+                    {token && 
                     <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4">
                         <div className="flex flex-col w-36 gap-2 px-5 py-3 bg-slate-100 text-gray-500 rounded">
                             <p className="cursor-pointer hover:text-black">My Profile</p>
-                            <p className="cursor-pointer hover:text-black">Orders</p>
-                            <p className="cursor-pointer hover:text-black">Logout</p>
+                            <p onClick={()=> navigate('/orders')} className="cursor-pointer hover:text-black">Orders</p>
+                            <p onClick={logout} className="cursor-pointer hover:text-black">Logout</p>
                         </div>
-                    </div>    
-            
+                    </div>}    
                 </div>
             
                     {/* cart icon and count <p>  */}
