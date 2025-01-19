@@ -16,6 +16,7 @@ const ShopContextProvider = (props) => {
     const [ showSearch, setShowSearch ] = useState(true);
     const [ cartItems, setCartItems ] = useState({});
     const [products, setProducts] = useState([]);
+    const [token , setToken] = useState("");
     const navigate = useNavigate();
 
 
@@ -59,7 +60,7 @@ const ShopContextProvider = (props) => {
     }
 
     useEffect( ()=>{
-        console.log(cartItems);
+        // console.log(cartItems);
     },[cartItems]
     )
 
@@ -91,10 +92,11 @@ const ShopContextProvider = (props) => {
         return totalAmount;
     } 
 
+    // Get products from mongoDB       
     const getProductsData = async ()=>{
         try{
             const response = await axios.get(backendUrl + '/api/product/list');
-            console.log(response.data);
+            // console.log(response.data);
             if (response.data.success){
                 setProducts(response.data.products);
             } else {
@@ -106,10 +108,17 @@ const ShopContextProvider = (props) => {
         }
     }
 
+    //run getProducts while mounting
     useEffect( ()=>{
         getProductsData();
     },[])
 
+    //when browser is refreshed, token from the local storage will be uploaded to token state variable while mouting if exists   
+    useEffect(()=>{
+        if (!token && localStorage.getItem('token')){
+            setToken(localStorage.getItem('token'));
+        }
+    },[])
 
     const value = {
         products, 
@@ -126,6 +135,8 @@ const ShopContextProvider = (props) => {
         getCartAmount,
         navigate,
         backendUrl,
+        token,
+        setToken,
 
 
     };
