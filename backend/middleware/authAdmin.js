@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 // Middleware to authenticate admin users
-const adminAuth = async (req, res, next) => {
+const authAdmin = async (req, res, next) => {
     try {
         // Extract the token from the request headers
         const { token } = req.headers;
@@ -30,4 +30,4 @@ const adminAuth = async (req, res, next) => {
     }
 };
 
-export default adminAuth;
+export default authAdmin;
