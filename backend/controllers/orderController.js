@@ -1,3 +1,8 @@
+// Placing order using COD
+const placeOrder = async (req, res)=>{
+
+}
+
 
 // Placing orders using Stripe Method
 const placeOrderStripe = async (req, res)=> {
@@ -24,4 +29,4 @@ const updateStatus = async (req, res)=> {
 
 }
 
-export { placeOrderStripe, placeOrderRazorpay, allOrders, userOrders, updateStatus}
+export { placeOrder, placeOrderStripe, placeOrderRazorpay, allOrders, userOrders, updateStatus};
