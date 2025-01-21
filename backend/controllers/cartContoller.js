@@ -3,9 +3,13 @@ import userModel from "../models/userModel.js";
 // add products to user cart
 const addToCart = async (req, res)=> {
     try{
+        console.log('addTOCart is called in cartController in backend')
+
         const { userId, itemId, size } = req.body;
 
         const userData = await userModel.findById(userId);
+
+        // console.log(userData);
 
         let cartData = await userData.cartData;
 
@@ -53,6 +57,7 @@ const updateCart = async (req, res)=> {
 // get user cart data
 const getUserCart = async (req, res)=> {
     try{
+        console.log('getUserCart in cartController')
         const { userId } = req.body;
         const userData = await userModel.findById(userId);
         const cartData = await userData.cartData;

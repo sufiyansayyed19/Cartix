@@ -1,1 +1,5 @@
 "ShopContext" export is incompatible
+shopContext:=> addTOCart
+Bug: without backend monogDB cart entry frontend is updating cart state variable and showing in cart
+Bug: refreshing deleting the cart items in frontend
+Bug: without auth frontend is updating cart state variable and cart

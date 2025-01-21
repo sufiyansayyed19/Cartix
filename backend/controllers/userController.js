@@ -11,7 +11,7 @@ const createToken = (id) => {
 
 
 
-//NOTE: .status(value) is reomved due to complications in grabing error message and success status in frontend.
+//NOTE: .status(value) is reomved due to complications in grabing error message and success status in frontend
 
 //Route for user Login
 const loginUser = async (req, res) => {

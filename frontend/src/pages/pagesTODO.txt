@@ -32,3 +32,7 @@ PlaceOrder:
 Login Page:
     1. Make SignUp and Login UI better
     2. 
+
+
+Cart.jsx:
+    1. while deleting product we are not deleting product from database instead we are making quantity of object zero, think about it
