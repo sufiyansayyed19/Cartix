@@ -111,7 +111,7 @@ const ShopContextProvider = (props) => {
     }
 
     // Page: Cart: to get total amount of price of product of card
-    const getCartAmount = async () => {
+    const getCartAmount = () => {
         let totalAmount = 0;
         for (const items in cartItems){
             let itemInfo =  products.find((product)=> product._id === items);
@@ -122,7 +122,7 @@ const ShopContextProvider = (props) => {
                     }
                 } catch (error) {
                     console.log(error);
-                    toast.error("price me error hai bhai");
+                    toast.error(error.message);
                 }
             }
         }
@@ -163,6 +163,7 @@ const ShopContextProvider = (props) => {
         showSearch, 
         setShowSearch,
         cartItems,
+        setCartItems,
         addToCart,
         getCartCount,
         updateQuantity,
