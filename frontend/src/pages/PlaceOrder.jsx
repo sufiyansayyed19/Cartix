@@ -72,7 +72,7 @@ const PlaceOrder = () => {
       }
 
     } catch(error) {
-
+      
     }
   }
 

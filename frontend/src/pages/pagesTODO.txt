@@ -41,4 +41,4 @@ Product.jsx:
     1. BUG: when we click two time on add to cart quality 2 in cart that is fine  but after refreshing the page quantity become 1 again;
 
 Place Order:
-    1. BUG: without selecting any paymentMethod by clicking we are navigating to other pages
+    1. BUG: without selecting any paymentMethod by clicking we are navigating to other pages 
