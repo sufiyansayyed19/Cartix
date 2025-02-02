@@ -3,3 +3,6 @@
 3. Add loading state in Add.jsx and list.jsx 
 4. in List.jsx use bin for reomve icon instead of cross 
 5. work on loading animation in pages
+
+
+redirct to login page if jwt token is expired instead to crashing server or toast message appearance

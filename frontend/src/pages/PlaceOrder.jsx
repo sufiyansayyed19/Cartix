@@ -47,7 +47,7 @@ const PlaceOrder = () => {
           }
         } 
       }
-      console.log(orderItmes);
+      // console.log(orderItmes);
       let orderData = {
         address: formData,
         items: orderItmes,
@@ -65,14 +65,29 @@ const PlaceOrder = () => {
           } else {
             toast.error(response.data.message);
           }
-          break;
+        break;
+        
+        case 'stripe':
+            console.log('You hit the stripe button')
+            const responseStripe = await axios.post(backendUrl + '/api/order/stripe', orderData, {headers:{token}});
+            if ( responseStripe.data.success) {
+              const { session_url } = responseStripe.data;
+              console.log(responseStripe.data)
+              window.location.replace(session_url);
+              //setCartItems({});
+              //navigate('/orders')
+            } else {
+              console.log('Something went wrong')
+              toast.error(response.data.message);
+            }
+            break;
 
           default:
             break;
       }
 
     } catch(error) {
-      
+
     }
   }
 
@@ -129,12 +144,12 @@ const PlaceOrder = () => {
           </div>
 
           <div className='w-full text-end mt-8'>
-            <button onClick={()=> navigate('/orders')} className='bg-black text-white px-16 py-3 active:bg-white active:text-black'>PLACE ORDER</button>
+            <button  className='bg-black text-white px-16 py-3 active:bg-white active:text-black'>PLACE ORDER</button>
           </div>
         </div>
 
       </div>
-
+      {/* onClick={()=> navigate('/orders')} */}
 
 
 
