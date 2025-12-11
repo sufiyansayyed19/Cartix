@@ -1,4 +1,5 @@
-import React,{ createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import PropTypes from 'prop-types';
 // import { products } from "../assets/frontend_assets/assets"; for local data
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -92,8 +93,9 @@ const ShopContextProvider = (props) => {
         if (token){
             try{
                 await axios.post(backendUrl + '/api/cart/update', {itemId,size,quantity}, {headers:{token}});
-            } catch (error){
-
+            } catch (error){    
+                console.log(error);
+                toast.error(error.message);
             }
         }
     }
@@ -184,5 +186,9 @@ const ShopContextProvider = (props) => {
 
 
 }
+
+ShopContextProvider.propTypes = {
+    children: PropTypes.node.isRequired,
+};
 
 export default ShopContextProvider;
