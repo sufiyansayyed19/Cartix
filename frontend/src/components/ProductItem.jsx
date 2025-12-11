@@ -1,19 +1,20 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
+import PropTypes from "prop-types";
 import { ShopContext } from "../context/ShopContext";
 import { Link } from "react-router-dom";
 
 // Page: Home, Collection
-// shows items on Home and collection page
+// Shows items on Home and Collection page
 const ProductItem = ({ id, image, name, price }) => {
   const { currency } = useContext(ShopContext);
 
   return (
     <Link className="text-gray-700 cursor-pointer" to={`/product/${id}`}>
-      <div className="overflow-hidden">
+      <div className="overflow-hidden aspect-square bg-gray-100">
         <img
-          className="hover:scale-110 transition ease-in-out"
-          src={image[0]}
-          alt=""
+          className="w-full h-full object-cover hover:scale-110 transition ease-in-out"
+          src={image?.[0]}
+          alt={name}
         />
       </div>
       <p className="pt-3 pb-1 text-sm">{name}</p>
@@ -23,6 +24,13 @@ const ProductItem = ({ id, image, name, price }) => {
       </p>
     </Link>
   );
+};
+
+ProductItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  image: PropTypes.arrayOf(PropTypes.string).isRequired,
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
 };
 
 export default ProductItem;
