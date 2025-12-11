@@ -14,7 +14,13 @@ const authUser = async (req, res, next)=> {
         next();
     } catch (error){
         console.log(error);
-        return res.json({success: false, message: error.message});
+        // Provide specific error messages for token issues
+        if (error.name === 'TokenExpiredError') {
+            return res.json({success: false, message: 'Token expired, please login again'});
+        } else if (error.name === 'JsonWebTokenError') {
+            return res.json({success: false, message: 'Invalid token, please login again'});
+        }
+        return res.json({success: false, message: 'Authentication failed'});
     }
 }
 
