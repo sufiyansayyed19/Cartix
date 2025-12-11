@@ -1,4 +1,4 @@
-import React , {useContext, useState} from 'react'
+import  {useContext, useState} from 'react'
 import Title from '../components/Title'
 import CartTotal from '../components/CartTotal'
 import { assets } from '../assets/frontend_assets/assets'
@@ -56,7 +56,7 @@ const PlaceOrder = () => {
 
       switch (method) {
         // API calls for COD
-        case 'cod':
+        case 'cod': {
           const response = await axios.post(backendUrl + '/api/order/place', orderData, {headers:{token}});
           
           if ( response.data.success) {
@@ -65,9 +65,10 @@ const PlaceOrder = () => {
           } else {
             toast.error(response.data.message);
           }
-        break;
+          break;
+        }
         
-        case 'stripe':
+        case 'stripe': {
             console.log('You hit the stripe button')
             const responseStripe = await axios.post(backendUrl + '/api/order/stripe', orderData, {headers:{token}});
             if ( responseStripe.data.success) {
@@ -78,16 +79,18 @@ const PlaceOrder = () => {
               //navigate('/orders')
             } else {
               console.log('Something went wrong')
-              toast.error(response.data.message);
+              toast.error(responseStripe.data.message);
             }
             break;
+        }
 
           default:
             break;
       }
 
     } catch(error) {
-
+      console.error('Order placement error:', error);
+      toast.error('Failed to place order. Please try again.');
     }
   }
 
@@ -149,14 +152,6 @@ const PlaceOrder = () => {
         </div>
 
       </div>
-      {/* onClick={()=> navigate('/orders')} */}
-
-
-
-
-
-
-
 
     </form>
   )
