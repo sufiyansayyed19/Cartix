@@ -26,7 +26,15 @@ const authAdmin = async (req, res, next) => {
     } catch (error) {
         // Catch any errors (e.g., invalid token) and return an error response
         console.log("Error: ", error);
-        res.status(500).json({ success: false, message: error.message });
+        
+        // Provide specific error messages for token issues
+        if (error.name === 'TokenExpiredError') {
+            return res.status(401).json({ success: false, message: 'Token expired, please login again' });
+        } else if (error.name === 'JsonWebTokenError') {
+            return res.status(401).json({ success: false, message: 'Invalid token, please login again' });
+        }
+        
+        res.status(500).json({ success: false, message: 'Authentication failed' });
     }
 };
 
