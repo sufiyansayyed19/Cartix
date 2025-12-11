@@ -4,7 +4,9 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 const createToken = (id) => {
-    return jwt.sign({id}, process.env.JWT_SECRET)
+    return jwt.sign({id}, process.env.JWT_SECRET, {
+        expiresIn: '7d' // Token expires in 7 days
+    });
 }
 
 
@@ -62,8 +64,22 @@ const registerUser = async (req, res) => {
             return res.json({success: false, message: "Please enter a valid email"});
         }
 
+        // Strong password validation
         if (password.length < 8) {
-            return res.json({success:false, message: "At least 8 characters passwrod are required"});
+            return res.json({success:false, message: "Password must be at least 8 characters long"});
+        }
+        
+        if (!validator.isStrongPassword(password, {
+            minLength: 8,
+            minLowercase: 1,
+            minUppercase: 1,
+            minNumbers: 1,
+            minSymbols: 1
+        })) {
+            return res.json({
+                success: false, 
+                message: "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+            });
         }
 
         // salt to hash user password
@@ -118,4 +134,68 @@ const adminLogin = async (req, res) => {
     // res.json({msg: "adminLogin is also working"})
 }
 
-export { loginUser, registerUser, adminLogin };
+// Route to get user profile
+const getUserProfile = async (req, res) => {
+    try {
+        const { userId } = req.body; // userId comes from authUser middleware
+        
+        const user = await userModel.findById(userId).select('-password'); // Exclude password
+        
+        if (!user) {
+            return res.json({ success: false, message: "User not found" });
+        }
+        
+        return res.json({ 
+            success: true, 
+            user: {
+                name: user.name,
+                email: user.email,
+                phone: user.phone || '',
+                address: user.address || '',
+                createdAt: user.createdAt
+            }
+        });
+        
+    } catch (error) {
+        console.log("Error: ", error);
+        res.json({ success: false, message: error.message });
+    }
+}
+
+// Route to update user profile
+const updateUserProfile = async (req, res) => {
+    try {
+        const { userId, name, phone, address } = req.body; // userId comes from authUser middleware
+        
+        // Find user
+        const user = await userModel.findById(userId);
+        
+        if (!user) {
+            return res.json({ success: false, message: "User not found" });
+        }
+        
+        // Update user fields
+        if (name) user.name = name;
+        if (phone !== undefined) user.phone = phone;
+        if (address !== undefined) user.address = address;
+        
+        await user.save();
+        
+        return res.json({ 
+            success: true, 
+            message: "Profile updated successfully",
+            user: {
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+                address: user.address
+            }
+        });
+        
+    } catch (error) {
+        console.log("Error: ", error);
+        res.json({ success: false, message: error.message });
+    }
+}
+
+export { loginUser, registerUser, adminLogin, getUserProfile, updateUserProfile };
